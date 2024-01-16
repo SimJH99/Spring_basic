@@ -4,6 +4,7 @@ package com.encore.basic.repository;
 import com.encore.basic.domain.Member;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,8 @@ import java.util.Optional;
 @Repository
 public class MemoryMemberRepository implements MemberRepository{
     private final List<Member> memberDB;
+
+    static int total_id;
 
     public MemoryMemberRepository(){
         memberDB = new ArrayList<>();
@@ -22,6 +25,10 @@ public class MemoryMemberRepository implements MemberRepository{
     }
     @Override
     public Member save(Member member){
+        total_id++;
+        LocalDateTime now = LocalDateTime.now();
+        member.setId(total_id);
+        member.setCreate_time(now);
         memberDB.add(member);
         return member;
     }

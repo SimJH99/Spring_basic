@@ -3,20 +3,32 @@
 #spring.datasource.url=jdbc:mariadb://localhost:3306/member
 #spring.datasource.username=name
 #spring.datasource.password=1234
-
-
-server:
-  post: 8081
+#server:
+#  post: 8081
 
 spring:
   profiles:
-    active: dev
   datasource:
-    url: jdbc:mariadb://localhost:3306/member
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/basic
     username: root
-    password:
+    password: 1234
+  jpa:
+    database: mysql
+#    innoDB 엔진 사용 설정
+    database-platform: org.hibernate.dialect.MariaDBDialect
+#    스키마는 사전 생성 필요
+    generate-ddl: true
+    hibernate:
+#      create옵션은 매번 table을 drop후 생성
+#      update옵션은 변경사항만 alter를 적용
+#      validate는 실제DB와의 차이만을 check
+#      실무에서는 update 또는 validate만 거의 사용
+      ddl-auto: create
+#      jpa가 자동으로 쿼리를 실행할 때, 쿼리가 console창에 보여지도록하는 설정
+    show_sql: true
 
-#---\uB97C \uD1B5\uD574\uC11C prod,dev\uD658\uACBD\uC744 \uAD6C\uBD84\uD55C\uB2E4. \uD558\uB098\uC758 \uD30C\uC77C\uB85C \uC5EC\uB7EC\uAC1C\uC758 \uBC84\uC804\uC744 \uB9CC\uB4DC\uB294 \uC148
+#---
 #---
 #
 #server:

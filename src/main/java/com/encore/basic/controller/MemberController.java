@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 @Controller
 public class MemberController {
     //service 어노테이션을 통해 싱글톤 컴포넌트로 생성 -> 스프링 빈으로 등록
@@ -57,9 +59,13 @@ public class MemberController {
     }
 
     @GetMapping("/member/find")
-    public String memberfind(Model model, @RequestParam(value = "id") int id) {
-        MemberResponseDto memberResponseDto = memberService.findById(id);
-        model.addAttribute("member", memberResponseDto);
-        return "/member/member-detail";
+    public String memberFind(Model model, @RequestParam(value = "id") int id) {
+        try{
+            MemberResponseDto memberResponseDto = memberService.findById(id);
+            model.addAttribute("member", memberResponseDto);
+            return "/member/member-detail";
+        } catch (NoSuchElementException e){
+            return "/member/404-error-page";
+        }
     }
 }

@@ -3,11 +3,11 @@ package com.encore.basic.service;
 import com.encore.basic.domain.MemberRequestDto;
 import com.encore.basic.domain.MemberResponseDto;
 import com.encore.basic.domain.Member;
-import com.encore.basic.repository.MemberRepository;
-import com.encore.basic.repository.MemoryMemberRepository;
+import com.encore.basic.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,13 @@ import java.util.NoSuchElementException;
 @Service
 public class MemberService {
 
+//    싱글톤의 다형성
     private final MemberRepository memberRepository;
     @Autowired
-    public MemberService(MemoryMemberRepository memoryMemberRepository){
-        this.memberRepository = memoryMemberRepository;
+    public MemberService(MybatisMemberRepository mybatisMemberRepository){
+        this.memberRepository = mybatisMemberRepository;
     }
 
-    static int total_id;
 
     public List<MemberResponseDto> members(){
         List<Member> members = memberRepository.findAll();
@@ -39,13 +39,11 @@ public class MemberService {
     }
 
     public void memberCreate(MemberRequestDto memberRequestDto){
-        total_id++;
-        LocalDateTime now = LocalDateTime.now();
-        Member member = new Member(total_id, memberRequestDto.getName(), memberRequestDto.getEmail(), memberRequestDto.getPassword(), now);
+        Member member = new Member(memberRequestDto.getName(), memberRequestDto.getEmail(), memberRequestDto.getPassword());
         memberRepository.save(member);
     }
 
-    public MemberResponseDto findById(int id){
+    public MemberResponseDto findById(int id) throws NoSuchElementException{
        Member member =  memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
        MemberResponseDto memberResponseDto = new MemberResponseDto();
        memberResponseDto.setId(member.getId());
