@@ -1,0 +1,31 @@
+#application.poroperties\uC758 \uD615\uC2DD
+#server.port=8081
+#spring.datasource.url=jdbc:mariadb://localhost:3306/member
+#spring.datasource.username=name
+#spring.datasource.password=1234
+
+
+server:
+  post: 8081
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mariadb://localhost:3306/member
+    username: root
+    password:
+
+#---\uB97C \uD1B5\uD574\uC11C prod,dev\uD658\uACBD\uC744 \uAD6C\uBD84\uD55C\uB2E4. \uD558\uB098\uC758 \uD30C\uC77C\uB85C \uC5EC\uB7EC\uAC1C\uC758 \uBC84\uC804\uC744 \uB9CC\uB4DC\uB294 \uC148
+#---
+#
+#server:
+#  post: 8082
+#
+#spring:
+#  profiles:
+#    active: prod
+#  datasource:
+#    url: jdbc:mariadb://localhost:3306/member
+#    username: root
+#    password: 1234
