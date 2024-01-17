@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -19,13 +20,13 @@ public class MemberController {
 //    @Autowired  //의존성 주입(DI) 방법1 => 필드주입방식
 //    private MemeberService memberService;
 
-//    의존성 주입방법2 => 생성자 주입 방식, 가장많이 사용
+    //    의존성 주입방법2 => 생성자 주입 방식, 가장많이 사용
 //    장점 : final을 통해 상수로 사용가능, 다형성 구현 가능, 순환잠조방지
 //    생성자가 1개밖에 없을 때에는 Autowired 생략가능
     private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberService memberService){
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
@@ -35,37 +36,55 @@ public class MemberController {
 
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "member/header";
     }
 
     @GetMapping("members/create")
-    public String memberCreateScreen(){
+    public String memberCreateScreen() {
         return "./member/member-create-screen";
     }
 
     @PostMapping("members/create")
     public String memberCreate(MemberRequestDto memberRequestDto) {
+        //트랜잭션 및 예외처리 테스트
+//        try {
+//            memberService.memberCreate(memberRequestDto);
+//            //url 리다리렉트
+//            return "redirect:/members";
+//        } catch (IllegalArgumentException e) {
+//            return "/member/404-error-page";
+//        }
         memberService.memberCreate(memberRequestDto);
-
-        //url 리다리렉트
         return "redirect:/members";
     }
 
     @GetMapping("members")
-    public String members(Model model){
+    public String members(Model model) {
         model.addAttribute("memberList", memberService.members());
-        return "./member/memberList";
+        return "/member/memberList";
     }
 
     @GetMapping("/member/find")
     public String memberFind(Model model, @RequestParam(value = "id") int id) {
-        try{
+        try {
             MemberResponseDto memberResponseDto = memberService.findById(id);
             model.addAttribute("member", memberResponseDto);
             return "/member/member-detail";
-        } catch (NoSuchElementException e){
+        } catch (EntityNotFoundException e) {
             return "/member/404-error-page";
         }
+    }
+
+    @GetMapping("/members/delete")
+    public String memberDelete(Model model, @RequestParam(value = "id") int id){
+        memberService.MemberDelete(id);
+        return "redirect:/members";
+    }
+
+    @PostMapping("member/update")
+    public String memberUpdate(MemberRequestDto memberRequestDto) {
+        memberService.memberUpdate(memberRequestDto);
+        return "redirect:/member/find?id="+memberRequestDto.getId();
     }
 }

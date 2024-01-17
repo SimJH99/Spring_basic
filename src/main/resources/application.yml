@@ -24,12 +24,18 @@ spring:
 #      update옵션은 변경사항만 alter를 적용
 #      validate는 실제DB와의 차이만을 check
 #      실무에서는 update 또는 validate만 거의 사용
-      ddl-auto: create
+      ddl-auto: update  #create는 모든 DDl변경사항 반영, update는 컬럼길이 변경X, 컬럼 추가반영 -> raw ddl쿼리문 DB변경, validate는 직접변경하지않고 변경사항을 체크만한다.
 #      jpa가 자동으로 쿼리를 실행할 때, 쿼리가 console창에 보여지도록하는 설정
     show_sql: true
 
+
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+
+
 #---
-#---
+# 하이픈 세개면 각 포트에 맞는 세팅을 할 수 있다.
 #
 #server:
 #  post: 8082

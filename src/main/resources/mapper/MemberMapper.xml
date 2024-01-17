@@ -11,8 +11,13 @@
         select * from member where id = #{id};
     </select>
 
-    <insert id="save" parameterType="String">
-        insert into member(name, email, password) values(#{name}, #{email}, #{password});
-    </insert>
+<!--    <insert id="save">-->
+<!--        insert into member(created_time, name, email, password) values(#{create_time}, #{name}, #{email}, #{password});-->
+<!--    </insert>-->
 
+    <select id="save" resultType="com.encore.basic.domain.Member">
+        insert into member(create_time, name, email, password) values(#{created_time}, #{name}, #{email}, #{password});
+    </select>
 </mapper>
+
+<!-- mybatis는 ddl수동 -> dml수동 -> 객체조립 생성 자동화 : 컬럼명과 변수명이 동일해야 호환 가능-->

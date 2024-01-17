@@ -1,13 +1,13 @@
 package com.encore.basic.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Data
-public class MemberRequestDto {
+public class MemberUpdateDto {
     private int id;
     private String name;
-    private String email;
     private String password;
+    private LocalDateTime update_time;
 }
