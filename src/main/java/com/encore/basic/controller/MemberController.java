@@ -77,7 +77,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/delete")
-    public String memberDelete(Model model, @RequestParam(value = "id") int id){
+    public String memberDelete(@RequestParam(value = "id") int id){
         memberService.MemberDelete(id);
         return "redirect:/members";
     }
