@@ -2,10 +2,13 @@ package com.encore.basic.controller;
 
 import com.encore.basic.domain.Hello;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.unbescape.html.HtmlEscape;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 
@@ -126,6 +129,29 @@ public class HelloController {
     public String jsonPostHandle3(@RequestBody Hello hello) {
         System.out.println(hello);
         return "ok";
+    }
+
+    @PostMapping("httpservlet")
+    @ResponseBody
+    public String httpServletTest(HttpServletRequest req){
+//        HttpServletRequest객체에서 header정보 추출
+        System.out.println("1" + req.getContextPath());
+        System.out.println(req.getMethod());
+//        session : 로그인(auth) 정보에서 필요한 정보값을 추출할 때 많이 사용
+        System.out.println(req.getSession());
+        System.out.println(req.getHeader("Accept"));
+
+//        HttpServletRequest객체에서 header정보 추출
+        System.out.println(req.getParameter("test1"));
+        System.out.println(req.getParameter("test2"));
+//        req.getReader()를 통해 BufferReader로 받아 직접 파싱
+        return "Ok";
+    }
+
+    @GetMapping("/hello-servlet-jsp-get")
+    public String helloServletJspGet(Model model){
+        model.addAttribute("myData", "jsp test data");
+        return "hello-jsp";
     }
 }
 

@@ -7,6 +7,14 @@
 #  post: 8081
 
 spring:
+#  Controller와 jsp사용시에 경로와 확장자 설정
+#  기본설정이 타임리프이므로, 타임리프 의존성 제거해야 jsp사용가능
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
+#      spring boot 2.4이상에서는 기본적으로 pathPatternParser를 사용하고 있는데.
+#    이는 이전버전과 다른 경로매칭규칙을 가지고 있어, springfox와 같은 일부 라이브러리에서는 문제 발생
   profiles:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -28,6 +36,10 @@ spring:
 #      jpa가 자동으로 쿼리를 실행할 때, 쿼리가 console창에 보여지도록하는 설정
     show_sql: true
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  
 
 
 mybatis:
