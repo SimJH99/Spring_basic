@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 
 //mybatis레파지토리로 쓰겠다라는 어노테이션
-
 @Mapper
 @Repository
 public interface MybatisMemberRepository extends MemberRepository {

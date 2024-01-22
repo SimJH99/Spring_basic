@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+
+//ResponseEntity : restApi에서 응답 헤더값 + body
+//1) 상태값만 주는 방법 / 2)new Responseentity<body, 상태값> / 3) 메서드 체이닝
 @RestController
 @RequestMapping("response/entity")
 public class ResponseEntityController {
