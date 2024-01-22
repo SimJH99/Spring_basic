@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 //entity어노테이션을 통해 mariaDB의 테이블 및 컬럼을 자동생성
 //class명은 테이블명, 변수명은 컬럼명
 @Entity
+//spring에서 런타임 상황에서 setter없이도 클래스의 변수와 메소드에 직접적으로 접근가능하게 리플렉션 기술을 사용하도록 하기위해서 기본생성자가 필요하기 때문에 꼭 생성해야한다.
 @NoArgsConstructor
 public class Member {
     @Setter
@@ -31,6 +32,8 @@ public class Member {
     @Setter
     @Column(name = "created_time")   //name옵션을 통해 DB에 컬럼명 별도 지정 가능
     private LocalDateTime create_time;
+//    자바에서는 케멀케이스로 사용해도 DB에서 컬럼생성할 때, jpa에서 알아서 변경해준다.
+//    createTime = create_time
 
     @UpdateTimestamp
     private LocalDateTime updatedTime;
