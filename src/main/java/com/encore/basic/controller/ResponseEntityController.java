@@ -17,7 +17,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("response/entity")
 public class ResponseEntityController {
-//    @ResponseStatus 어노테이션 방식
+    //    @ResponseStatus 어노테이션 방식
     @GetMapping("/responsestatus")
     @ResponseStatus(HttpStatus.CREATED)
     public String responseStatus() {
@@ -26,56 +26,55 @@ public class ResponseEntityController {
 
     @GetMapping("/responsestatus2")
     @ResponseStatus(HttpStatus.CREATED)
-    public Member member (){
-        Member member = new Member("name","email","password");
+    public Member member() {
+        Member member = new Member("name", "email", "password");
         return member;
     }
 
 
-//    ResponseEntity객체를 직접생성한 방식
+    //    ResponseEntity객체를 직접생성한 방식
     @GetMapping("/custom1")
-    public ResponseEntity<Member> custom1(){
-        Member member = new Member("name","email","password");
+    public ResponseEntity<Member> custom1() {
+        Member member = new Member("name", "email", "password");
         return new ResponseEntity<>(member, HttpStatus.CREATED);
     }
-    
-//    ResponseEntity<String>일 경우 text/html로 설정
+
+    //    ResponseEntity<String>일 경우 text/html로 설정
     @GetMapping("/custom2")
-    public ResponseEntity<String> custom2(){
+    public ResponseEntity<String> custom2() {
         String html = "<h1>없는 아이디 입니다.</h1>";
         return new ResponseEntity<>(html, HttpStatus.NOT_FOUND);
     }
 
     //    메서드 체이닝 방식 : ResponseEntity에 클래스 메서드도 사용
     @GetMapping("chaing1")
-    public ResponseEntity<Member> chaingMethod1(){
-        Member member = new Member("name","email","password");
+    public ResponseEntity<Member> chaingMethod1() {
+        Member member = new Member("name", "email", "password");
         return ResponseEntity.ok(member);
     }
 
     @GetMapping("chaing2")
-    public ResponseEntity<Member> chaingMethod2(){
+    public ResponseEntity<Member> chaingMethod2() {
         return ResponseEntity.notFound().build();
     }
 
     @GetMapping("chaing3")
-    public ResponseEntity<Member> chaingMethod3(){
-        Member member = new Member("name","email","password");
+    public ResponseEntity<Member> chaingMethod3() {
+        Member member = new Member("name", "email", "password");
         return ResponseEntity.status(HttpStatus.CREATED).body(member);
     }
 
 
-
-//    map형태의 메시지 커스텀
-    static public ResponseEntity<Map<String, Object>> errorResponseMessage(HttpStatus status, String message){
+    //    map형태의 메시지 커스텀
+    static public ResponseEntity<Map<String, Object>> errorResponseMessage(HttpStatus status, String message) {
         Map<String, Object> body = new HashMap<>();
         body.put("status", Integer.toString(status.value()));
         body.put("error message", message);
         return new ResponseEntity<>(body, status);
     }
 
-//    status 201, message : 객체
-    static public ResponseEntity<Map<String, Object>> responseMessage(HttpStatus status, Object object){
+    //    status 201, message : 객체
+    static public ResponseEntity<Map<String, Object>> responseMessage(HttpStatus status, Object object) {
         Map<String, Object> body = new HashMap<>();
         body.put("status", Integer.toString(status.value()));
         body.put("success data", object);

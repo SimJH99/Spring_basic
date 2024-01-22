@@ -21,7 +21,7 @@ public class Member {
     // identity = auto-increment설정. auto = JPA구현체가 자동으로 적절한 키생성 전략 선택.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-//    String은 DB에 varchar로 변환
+    //    String은 DB에 varchar로 변환
     @Setter
     private String name;
     @Column(nullable = false, length = 50)
@@ -35,7 +35,7 @@ public class Member {
     @UpdateTimestamp
     private LocalDateTime updatedTime;
 
-    public Member(String name, String email, String password){
+    public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;

@@ -47,7 +47,7 @@ public class MemberService {
     //Transactional 어노테이션 클래스 단위로 붙이면 모든 메서드에 각각 Transaction 적용
     //Transactional을 적용하면 한 메서드 단위로 트랜잭션 지정
     @Transactional
-    public void memberCreate(MemberRequestDto memberRequestDto) throws IllegalArgumentException{
+    public void memberCreate(MemberRequestDto memberRequestDto) throws IllegalArgumentException {
         Member member = new Member(memberRequestDto.getName(), memberRequestDto.getEmail(), memberRequestDto.getPassword());
         memberRepository.save(member);
 //        트랜잭션테스트 롤백 및 예외 발생
@@ -67,13 +67,13 @@ public class MemberService {
         return memberResponseDto;
     }
 
-    public void MemberDelete(int id){
+    public void MemberDelete(int id) {
         Member member = memberRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         memberRepository.delete(member);
 
     }
 
-    public void memberUpdate(MemberRequestDto memberRequestDto){
+    public void memberUpdate(MemberRequestDto memberRequestDto) {
         Member member = memberRepository.findById(memberRequestDto.getId()).orElseThrow(EntityNotFoundException::new);
         member.updateMember(memberRequestDto.getName(), memberRequestDto.getPassword());
         memberRepository.save(member);

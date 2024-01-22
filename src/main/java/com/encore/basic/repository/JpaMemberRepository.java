@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JpaMemberRepository implements MemberRepository{
-//    EntityManager는 JPA의 핵심클래스(객체)
+public class JpaMemberRepository implements MemberRepository {
+    //    EntityManager는 JPA의 핵심클래스(객체)
 //    Entity의 생명주기를 관리. 데이터베이스의 모든 상호작용을 책임.
 //    엔티티를 대상으로 CRUD하는 기능을 제공
     private final EntityManager entityManager;

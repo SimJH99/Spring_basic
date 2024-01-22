@@ -46,7 +46,7 @@ public class MemberController {
     }
 
     @PostMapping("members/create")
-    public String memberCreate(MemberRequestDto memberRequestDto) {
+    public String memberCreate(MemberRequestDto memberRequestDto) { //데이터 바인딩으로 데이터 받아온다.
         //트랜잭션 및 예외처리 테스트
 //        try {
 //            memberService.memberCreate(memberRequestDto);
@@ -59,7 +59,7 @@ public class MemberController {
         return "redirect:/members";
     }
 
-    @GetMapping("members")
+    @GetMapping("members") //모든 데이터를 달라고 하면 서버가 뻗어버리니깐 나중에 20개씩 받도록 페이징 처리를 한다.
     public String members(Model model) {
         model.addAttribute("memberList", memberService.members());
         return "/member/memberList";
@@ -77,7 +77,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/delete")
-    public String memberDelete(@RequestParam(value = "id") int id){
+    public String memberDelete(@RequestParam(value = "id") int id) {
         memberService.MemberDelete(id);
         return "redirect:/members";
     }
@@ -85,6 +85,6 @@ public class MemberController {
     @PostMapping("member/update")
     public String memberUpdate(MemberRequestDto memberRequestDto) {
         memberService.memberUpdate(memberRequestDto);
-        return "redirect:/member/find?id="+memberRequestDto.getId();
+        return "redirect:/member/find?id=" + memberRequestDto.getId();
     }
 }

@@ -46,17 +46,17 @@ public class MemberRestController {
     @GetMapping("/members/find/{id}")
     public ResponseEntity<Map<String, Object>> memberFind(@PathVariable int id) {
         MemberResponseDto memberResponseDto = null;
-        try{
+        try {
             memberResponseDto = memberService.findById(id);
             return responseMessage(HttpStatus.OK, memberResponseDto);
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             e.printStackTrace();
-            return errorResponseMessage(HttpStatus.NOT_FOUND,e.getMessage());
+            return errorResponseMessage(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @DeleteMapping("/members/delete/{id}")
-    public String memberDelete(@PathVariable int id){
+    public String memberDelete(@PathVariable int id) {
         memberService.MemberDelete(id);
         return "ok";
     }
@@ -67,5 +67,5 @@ public class MemberRestController {
         return memberService.findById(memberRequestDto.getId());
     }
 
-    
+
 }

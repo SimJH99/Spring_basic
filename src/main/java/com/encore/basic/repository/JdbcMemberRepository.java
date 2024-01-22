@@ -15,20 +15,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JdbcMemberRepository implements MemberRepository{
-//    Datasource는 DB와 JDBC에서 사용하는 DB연결 드라이버 객체
+public class JdbcMemberRepository implements MemberRepository {
+    //    Datasource는 DB와 JDBC에서 사용하는 DB연결 드라이버 객체
     @Autowired
     private DataSource dataSource;
 
     @Override
     public List<Member> findAll() {
         List<Member> members = new ArrayList<>();
-        try{
+        try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM member;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
@@ -41,7 +41,7 @@ public class JdbcMemberRepository implements MemberRepository{
                 member.setCreate_time(now);
                 members.add(member);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return members;
@@ -49,7 +49,7 @@ public class JdbcMemberRepository implements MemberRepository{
 
     @Override
     public Member save(Member member) {
-        try{
+        try {
             Connection connection = dataSource.getConnection();
             String sql = "insert into member(name, email, password) values(?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class JdbcMemberRepository implements MemberRepository{
             preparedStatement.setString(2, member.getEmail());
             preparedStatement.setString(3, member.getPassword());
             preparedStatement.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -67,7 +67,7 @@ public class JdbcMemberRepository implements MemberRepository{
     public Optional<Member> findById(int idInput) {
         List<Member> members = new ArrayList<>();
         Member member = null;
-        try{
+        try {
             Connection connection = dataSource.getConnection();
             String sql = "select * from member where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -85,7 +85,7 @@ public class JdbcMemberRepository implements MemberRepository{
             member = new Member(name, email, password);
             member.setId(id);
             member.setCreate_time(now);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

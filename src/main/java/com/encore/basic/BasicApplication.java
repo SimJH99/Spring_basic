@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 @ServletComponentScan
 @SpringBootApplication
 public class BasicApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(BasicApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BasicApplication.class, args);
+    }
 }

@@ -10,21 +10,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MemoryMemberRepository implements MemberRepository{
+public class MemoryMemberRepository implements MemberRepository {
     private final List<Member> memberDB;
 
     static int total_id;
 
-    public MemoryMemberRepository(){
+    public MemoryMemberRepository() {
         memberDB = new ArrayList<>();
     }
 
     @Override
-    public List<Member> findAll(){
+    public List<Member> findAll() {
         return memberDB;
     }
+
     @Override
-    public Member save(Member member){
+    public Member save(Member member) {
         total_id++;
         LocalDateTime now = LocalDateTime.now();
         member.setId(total_id);
@@ -35,8 +36,8 @@ public class MemoryMemberRepository implements MemberRepository{
 
     @Override
     public Optional<Member> findById(int id) {
-        for (Member member : memberDB){
-            if (member.getId() == id){
+        for (Member member : memberDB) {
+            if (member.getId() == id) {
                 return Optional.of(member);
             }
         }
