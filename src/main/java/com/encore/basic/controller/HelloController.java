@@ -133,7 +133,7 @@ public class HelloController {
 
     @PostMapping("httpservlet")
     @ResponseBody
-    public String httpServletTest(HttpServletRequest req){
+    public String httpServletTest(HttpServletRequest req) {
 //        HttpServletRequest객체에서 header정보 추출
         System.out.println("1" + req.getContextPath());
         System.out.println(req.getMethod());
@@ -149,9 +149,16 @@ public class HelloController {
     }
 
     @GetMapping("/hello-servlet-jsp-get")
-    public String helloServletJspGet(Model model){
+    public String helloServletJspGet(Model model) {
         model.addAttribute("myData", "jsp test data");
         return "hello-jsp";
+    }
+
+    public void helloBuilderTest() {
+        Hello hello = Hello.bulider()
+                .name("hong")
+                .email("hong@naver.com")
+                .build();
     }
 }
 
